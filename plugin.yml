@@ -2,6 +2,7 @@ name: MineReset
 main: falkirks\minereset\MineReset
 version: 3.3.0
 author: Falk
+translator: WolfTubeTM
 api: [3.0.0, 4.0.0]
 load: POSTWORLD
 softdepend: [SimpleWarp, EasyForms]
@@ -11,21 +12,21 @@ permissions:
   children:
    minereset.command:
     default: op
-    description: Use MineReset commands
+    description: Quyền cho phép sử dụng tất cả lệnh MineReset.
     children:
       minereset.command.about:
-        description: Read the about text
+        description: Quyền cho phép xem thông tin plugin.
       minereset.command.edit:
-        description: Use the editor form
+        description: Quyền cho phép chỉnh sửa.
       minereset.command.report:
-        description: Generate github issues
+        description: Quyền cho phép gửi báo cáo tới Github.
       minereset.command.create:
-        description: Add new Mines
+        description: Quyền cho phép thêm mới khu mine.
       minereset.command.set:
-        description: Set existing mines
+        description: Quyền cho phép set block cho khu mine.
       minereset.command.reset:
-        description: Reset mines
+        description: Quyền cho phép reset khu mine.
       minereset.command.destroy:
-        description: Remove mines
+        description: Quyền cho phép xóa khu mine.
       minereset.command.resetall:
-        description: Reset all mines
+        description: Quyền cho phép reset tất cả khu mine.
