@@ -14,7 +14,7 @@ class ReportCommand extends SubCommand{
         if($sender->hasPermission("minereset.command.report")) {
             $data = $this->getApi()->getDebugDumpFactory()->generate();
             if ($sender instanceof ConsoleCommandSender) {
-                $issueContent = "\n\n(Explain your problem here)\n\n```\n$data\n```";
+                $issueContent = "\n\n(Giải thích vấn đề của bạn ở đây)\n\n```\n$data\n```";
                 $url = "https://github.com/Falkirks/MineReset/issues/new" . (count($args) > 0 ? "?title=" . urlencode(implode(" ", $args)) . "\&" : "?") . "body=" . urlencode($issueContent);
                 switch (Utils::getOS()) {
                     case 'win':
@@ -27,18 +27,18 @@ class ReportCommand extends SubCommand{
                         `xdg-open $url`;
                         break;
                     default:
-                        $sender->sendMessage("Copy and paste the following URL into your browser to start a report.");
+                        $sender->sendMessage("Sao chép và dán URL sau vào trình duyệt của bạn để bắt đầu báo cáo.");
                         $sender->sendMessage("------------------");
                         $sender->sendMessage($url);
                         $sender->sendMessage("------------------");
                         break;
                 }
             }
-            $sender->sendMessage("--- MineReset Data ---");
+            $sender->sendMessage("--- Dữ liệu MineReset ---");
             $sender->sendMessage($data);
         }
         else{
-            $sender->sendMessage(TextFormat::RED . "You do not have permission to run this command." . TextFormat::RESET);
+            $sender->sendMessage(TextFormat::RED . "Bạn không có quyền để sử dụng lệnh này!" . TextFormat::RESET);
         }
     }
 }

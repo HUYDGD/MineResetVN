@@ -43,7 +43,7 @@ class RegionBlockerListener implements Listener {
             foreach ($this->getApi()->getServer()->getOnlinePlayers() as $player){
                 if($mine->isPointInside($player->getPosition())){
                     $this->teleportPlayer($player, $mine);
-                    $player->sendMessage("You have teleported to escape a resetting mine.");
+                    $player->sendMessage("Bạn được dịch chuyển đi vì khu mine đang reset.");
                 }
             }
         }
@@ -58,7 +58,7 @@ class RegionBlockerListener implements Listener {
 
         $mine = $this->getResettingMineAtPosition($event->getBlock());
         if($mine != null){
-            $event->getPlayer()->sendMessage(TextFormat::RED . "A mine is currently resetting in this area. You may not place blocks." . TextFormat::RESET);
+            $event->getPlayer()->sendMessage(TextFormat::RED . "Khu mine này đang reset, bạn không thể đặt block được!" . TextFormat::RESET);
             $event->setCancelled();
         }
     }
@@ -72,7 +72,7 @@ class RegionBlockerListener implements Listener {
 
         $mine = $this->getResettingMineAtPosition($event->getBlock());
         if($mine != null){
-            $event->getPlayer()->sendMessage(TextFormat::RED . "A mine is currently resetting in this area. You may not break blocks." . TextFormat::RESET);
+            $event->getPlayer()->sendMessage(TextFormat::RED . "Khu mine này đang reset, bạn không thể phá block được!" . TextFormat::RESET);
             $event->setCancelled();
         }
     }

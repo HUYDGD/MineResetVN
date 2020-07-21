@@ -18,16 +18,16 @@ class ResetAllCommand extends SubCommand{
                         $success++;
                         $this->getApi()->getResetProgressManager()->addObserver($mine->getName(), $sender);
                     } catch (MineResetException $exception){
-                        $sender->sendMessage(TextFormat::RED . "Error raised for {$mine->getName()}, you can reset this mine directly for more info." . TextFormat::RESET);
+                        $sender->sendMessage(TextFormat::RED . "Có lỗi được phát hiện trong khu {$mine->getName()}, vui lòng kiểm tra lại file config." . TextFormat::RESET);
                     }
 
                 }
             }
             $count = count($this->getApi()->getMineManager());
-            $sender->sendMessage("Queued reset for {$success}/{$count} mines.");
+            $sender->sendMessage("KẾT QUẢ: {$success} khu được reset thành công trên tổng {$count} khu mine.");
         }
         else{
-            $sender->sendMessage(TextFormat::RED . "You do not have permission to run this command." . TextFormat::RESET);
+            $sender->sendMessage(TextFormat::RED . "Bạn không có quyền để sử dụng lệnh này!" . TextFormat::RESET);
         }
     }
 }

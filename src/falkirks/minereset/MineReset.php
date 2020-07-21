@@ -50,6 +50,9 @@ class MineReset extends PluginBase{
     private $creationListener;
 
     public function onEnable(){
+        $this->getLogger()->info("§aMineReset bản ". $this->getDescription()->getVersion() ." §eFULL VIỆT HÓA §ađã được bật!");
+        $this->getLogger()->info("§aPlugin được dịch bởi Sói Oniichan.");
+        $this->getLogger()->info("§cYoutube: §ehttps://www.youtube.com/SoiOniichan");
         self::detectChunkSetting();
 
         @mkdir($this->getDataFolder());
@@ -80,7 +83,7 @@ class MineReset extends PluginBase{
         $this->mainCommand->registerSubCommand("edit", new EditCommand($this), ['e']);
 
         if(!self::supportsChunkSetting()){
-            $this->getLogger()->warning("Your server does not support setting chunks without unloading them. This will cause tiles and entities to be lost when resetting mines. Upgrade to a newer pmmp to resolve this.");
+            $this->getLogger()->warning("Vui lòng nâng cấp PocketMine-MP lên bản mới nhất! (Nếu không khi reset khu mine sẽ có một số block bị mất.)");
         }
 
     }

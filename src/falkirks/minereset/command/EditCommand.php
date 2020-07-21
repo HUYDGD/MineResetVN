@@ -1,5 +1,7 @@
 <?php
 
+/* LỆNH EDIT BỊ LỖI ANH EM ƠI, KHI NÀO CÓ THỜI GIAN MÌNH SỬA */
+
 namespace falkirks\minereset\command;
 
 
@@ -18,25 +20,25 @@ class EditCommand extends SubCommand{
         if($sender->hasPermission("minereset.command.edit")) {
             if($sender instanceof Player && $this->formsSupported()){
                 $sender->sendForm(new class("Mine: a", [
-                    new Dropdown("Select product", ["beer", "cheese", "cola"]),
-                    new Input("Mine name", "a"),
-                    new Input("Reset interval", "-1"),
-                    new Label("Reset interval is in seconds"), //popElement() does not work with label
-                    new Input("Warp name", ""),
-                    new Label("Name of the warp to link with the mine"),
+                    new Dropdown("Chọn sản phẩm", ["beer", "cheese", "cola"]),
+                    new Input("Tên khu mine", "a"),
+                    new Input("Thời gian đặt lại", "-1"),
+                    new Label("Thời gian đặt lại được tính bằng giây"), //popElement() does not work with label
+                    new Input("Tên warp", ""),
+                    new Label("Tên warp để kết nối với khu mine."),
                 ]) extends CustomForm {
                     public function onSubmit(Player $player, $response) : void{
                         parent::onSubmit($player, $response);
-                        $player->sendMessage("cool!");
+                        $player->sendMessage("Tuyệt!");
                     }
                 });
             }
             else {
-                $sender->sendMessage(TextFormat::RED . "You must install EasyForms to use this command." . TextFormat::RESET);
+                $sender->sendMessage(TextFormat::RED . "Bạn phải cài đặt EasyForms để sử dụng lệnh này!" . TextFormat::RESET);
             }
         }
         else{
-            $sender->sendMessage(TextFormat::RED . "You do not have permission to run this command." . TextFormat::RESET);
+            $sender->sendMessage(TextFormat::RED . "Bạn không có quyền để sử dụng lệnh này!" . TextFormat::RESET);
         }
 
 

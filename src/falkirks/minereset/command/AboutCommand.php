@@ -13,7 +13,7 @@ class AboutCommand extends SubCommand{
             $this->getApi()->getServer()->getAsyncPool()->submitTask(new AboutPullTask($sender));
         }
         else{
-            $sender->sendMessage(TextFormat::RED . "You do not have permission to run this command." . TextFormat::RESET);
+            $sender->sendMessage(TextFormat::RED . "Bạn không có quyền để sử dụng lệnh này!" . TextFormat::RESET);
         }
     }
 }

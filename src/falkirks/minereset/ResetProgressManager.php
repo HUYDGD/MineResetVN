@@ -24,7 +24,7 @@ class ResetProgressManager{
     public function notifyProgress(string $progress, string $mineName){
         if(isset($this->subscriptions[$mineName])){
             foreach ($this->subscriptions[$mineName] as $sender){
-                $sender->sendMessage("RESET {$mineName}: {$progress}");
+                $sender->sendMessage("TIẾN TRÌNH KHU {$mineName}: {$progress}");
             }
         }
     }
@@ -35,7 +35,7 @@ class ResetProgressManager{
         }
         if(isset($this->subscriptions[$mineName])){
             foreach ($this->subscriptions[$mineName] as $sender){
-                $sender->sendMessage("Reset of {$mineName} has completed.");
+                $sender->sendMessage("Khu {$mineName} đã được reset.");
             }
             unset($this->subscriptions[$mineName]);
         }

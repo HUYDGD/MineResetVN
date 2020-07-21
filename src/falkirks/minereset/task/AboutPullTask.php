@@ -38,7 +38,7 @@ class AboutPullTask extends AsyncTask {
             if ($result !== false) {
                 $sender->sendMessage($this->getResult());
             } else {
-                $sender->sendMessage("MineReset by Falkirks. This is a fancy plugin that allows you to make resettable mines.");
+                $sender->sendMessage("MineReset viết bởi Falkirks. Đây là plugin tuyệt vời để làm Prison.");
             }
         }
     }

@@ -11,46 +11,46 @@ use pocketmine\utils\TextFormat;
 class ResetCommand extends SubCommand{
     public function execute(CommandSender $sender, $commandLabel, array $args){
         if(!$sender->hasPermission("minereset.command.reset"))
-            return $sender->sendMessage(TextFormat::RED . "You do not have permission to run this command." . TextFormat::RESET);
+            return $sender->sendMessage(TextFormat::RED . "Bạn không có quyền để sử dụng lệnh này!" . TextFormat::RESET);
 
         if (!isset($args[0]))
-            return $sender->sendMessage("Usage: /mine reset <name>");
+            return $sender->sendMessage("Sử dụng: /mine reset <tên>");
 
         $mine = $this->getApi()->getMineManager()[$args[0]]; // fetch mine from the manager
 
         if($mine === null)
-            return $sender->sendMessage("{$args[0]} is not a valid mine.");
+            return $sender->sendMessage("Không thế tìm thấy khu mine {$args[0]}.");
 
         try{
             $mine->reset();
-            $sender->sendMessage("Queued reset for {$args[0]}.");
+            $sender->sendMessage("ĐANG RESET KHU {$args[0]}.");
             $this->getApi()->getResetProgressManager()->addObserver($args[0], $sender);
         }
         catch (InvalidStateException $e){
-            $sender->sendMessage(TextFormat::RED . "Failed to queue reset due to bad state." . TextFormat::RESET);
+            $sender->sendMessage(TextFormat::RED . "Không thể reset lại!" . TextFormat::RESET);
 
-            $sender->sendMessage("  --> this means the mine is already resetting");
-            $sender->sendMessage("  --> wait a minute and try again ");
-            $sender->sendMessage("  --> then try restarting the server ");
+            $sender->sendMessage("  --> Điều này có thể là khu mine ĐÃ ĐƯỢC RESET.");
+            $sender->sendMessage("  --> Đợi vài phút và thử lại.");
+            $sender->sendMessage("  --> Sau đó hãy thử khởi động lại server.");
 
-            $sender->sendMessage("You can run /mine report to report bugs on github.");
+            $sender->sendMessage("Bạn có thể dụng /mine report để báo cáo lỗi trên Github.");
         }
         catch (WorldNotFoundException $e){
-            $sender->sendMessage(TextFormat::RED . "Failed to queue reset due to level not found." . TextFormat::RESET);
+            $sender->sendMessage(TextFormat::RED . "Không thể reset do không tìm thấy world." . TextFormat::RESET);
 
-            $sender->sendMessage("  --> this means that the level called [{$mine->getLevelName()}] is not loaded");
-            $sender->sendMessage("  --> perhaps you have changed the level name? or forgotten to load it? ");
+            $sender->sendMessage("  --> Có thể [{$mine->getLevelName()}] chưa được load.");
+            $sender->sendMessage("  --> Có thể bạn đã đổi tên world chăng?");
 
-            $sender->sendMessage("You can run /mine report to report bugs on github.");
+            $sender->sendMessage("Bạn có thể dụng /mine report để báo cáo lỗi trên Github.");
         }
         catch(InvalidBlockStringException $e){
-            $sender->sendMessage(TextFormat::RED . "Failed to queue reset due to invalid ratio date." . TextFormat::RESET);
+            $sender->sendMessage(TextFormat::RED . "Không thể reset do có lỗi trong file config." . TextFormat::RESET);
 
-            $sender->sendMessage("  --> this means the saved data for the mine is invalid");
-            $sender->sendMessage("  --> you should look at the mines save file and make sure it looks right ");
-            $sender->sendMessage("  --> all blocks need to either be numeric ids or the exact block name ");
+            $sender->sendMessage("  --> Điều này có nghĩa là dữ liệu ĐƯỢC LƯU trong file bị sai.");
+            $sender->sendMessage("  --> Kiểm tra lại config và chắc chắn rằng nó đã đúng.");
+            $sender->sendMessage("  --> Tất cả các khối cần phải là id số hoặc tên khối chính xác.");
 
-            $sender->sendMessage("You can run /mine report to report bugs on github.");
+            $sender->sendMessage("Bạn có thể dụng /mine report để báo cáo lỗi trên Github.");
         }
 
         return true;

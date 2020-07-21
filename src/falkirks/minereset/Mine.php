@@ -71,7 +71,7 @@ class Mine extends Task implements \JsonSerializable {
             $this->register();
         }
         else{
-            $api->getApi()->getLogger()->warning("MineReset has detected corruption of the mines.yml file in mine with name {$this->name}, MineReset will not reset this mine.");
+            $api->getApi()->getLogger()->warning("MineReset đã PHÁT HIỆN ra được lỗi trong mine.yml ở khu mine có tên là {$this->name}, MineReset sẽ không reset khu mine này.");
         }
 
     }
@@ -109,7 +109,7 @@ class Mine extends Task implements \JsonSerializable {
             $this->reset();
         }
         catch(MineResetException $e){
-            $this->getApi()->getApi()->getLogger()->debug("Background reset timer raised an exception --> " . $e->getMessage());
+            $this->getApi()->getApi()->getLogger()->debug("Hẹn giờ thiết lập lại nền đã đưa ra một ngoại lệ --> " . $e->getMessage());
         }
     }
 

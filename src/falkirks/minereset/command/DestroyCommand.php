@@ -35,11 +35,11 @@ class DestroyCommand extends SubCommand{
     public function doDelete(CommandSender $sender, $name){
         unset($this->getApi()->getMineManager()[$name]);
         unset($this->senders[$sender->getName()]);
-        $sender->sendMessage("{$name[0]} has been destroyed.");
+        $sender->sendMessage("Khu mine {$name[0]} đã được phá hủy.");
     }
 
     private function formDelete(CommandSender $sender, $name){
-        $form = new class("Are you sure?", "You are about to delete the mine called $name.") extends ModalForm {
+        $form = new class("Bạn có chắc không?", "Bạn sắp xóa khu mine có tên $name.") extends ModalForm {
             public function onSubmit(Player $player, $response) : void{
                 if($response){
                     $this->parent->doDelete($player, $this->name);
@@ -53,8 +53,8 @@ class DestroyCommand extends SubCommand{
 
     private function basicDelete(CommandSender $sender, $name){
         $str = DestroyCommand::DESTROY_STRINGS[$this->offset];
-        $sender->sendMessage("Run: " . TextFormat::AQUA . "/mine destroy $name $str" . TextFormat::RESET);
-        $sender->sendMessage("To destroy mines faster, you can edit the config file directly.");
+        $sender->sendMessage("Sử dụng: " . TextFormat::AQUA . "/mine destroy $name $str" . TextFormat::RESET);
+        $sender->sendMessage("Mẹo: Bạn có thể xóa nhanh bằng cách vào file config.");
         $this->senders[$sender->getName()] = $str;
 
         if ($this->offset === count(DestroyCommand::DESTROY_STRINGS) - 1) {
@@ -67,15 +67,15 @@ class DestroyCommand extends SubCommand{
 
     public function execute(CommandSender $sender, $commandLabel, array $args){
         if(!$sender->hasPermission("minereset.command.destroy"))
-            return $sender->sendMessage(TextFormat::RED . "You do not have permission to run this command." . TextFormat::RESET);
+            return $sender->sendMessage(TextFormat::RED . "Bạn không có quyền để sử dụng lệnh này!" . TextFormat::RESET);
 
         if (!isset($args[0]))
-            return $sender->sendMessage("Usage: /mine destroy <name>");
+            return $sender->sendMessage("Sử dụng: /mine destroy <tên>");
 
         $name = $args[0];
 
         if(!isset($this->getApi()->getMineManager()[$name]))
-            return $sender->sendMessage("{$args[0]} is not a valid mine.");
+            return $sender->sendMessage("Không thế tìm thấy khu mine {$args[0]}.");
 
         if($sender instanceof Player && $this->formsSupported()){
             $this->formDelete($sender, $name);

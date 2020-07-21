@@ -31,8 +31,8 @@ class MineManager implements \ArrayAccess, \IteratorAggregate, \Countable {
         $this->mines = [];
         if(file_exists($api->getDataFolder() . "mines.yml")){
             rename($api->getDataFolder() . "mines.yml", $api->getDataFolder() . "_minesOLD.yml");
-            $api->getLogger()->info("MineReset is upgrading your old mines.yml to the newest config version");
-            $api->getLogger()->info("A backup of your old file will be placed at " . TextFormat::BLACK . "_minesOLD.yml" . TextFormat::RESET);
+            $api->getLogger()->info("MineReset đang nâng cấp file config mine.yml cũ của bạn lên phiên bản mới nhất");
+            $api->getLogger()->info("Một bản sao lưu của tập tin cũ của bạn sẽ được đặt tại " . TextFormat::BLACK . "_minesOLD.yml" . TextFormat::RESET);
             $this->triggerConfigUpdate();
 
         }
@@ -71,7 +71,7 @@ class MineManager implements \ArrayAccess, \IteratorAggregate, \Countable {
                 $out[$name] = Mine::fromJson($this, $data, $name);
             }
             catch(JsonFieldMissingException $e){
-                $this->getApi()->getLogger()->warning("Mine with name " . $name . " is missing data in save file. Will be deleted on next save.");
+                $this->getApi()->getLogger()->warning("Khu mine tên " . $name . " đang bị thiếu dữ liệu so với file đã lưu.");
             }
             //$out[$name] = $this->mineFromData($name, $data);
         }
@@ -144,7 +144,7 @@ class MineManager implements \ArrayAccess, \IteratorAggregate, \Countable {
             }
         }
         else{
-            throw new \RuntimeException("Invalid \$offset for mine data.");
+            throw new \RuntimeException("\$offset không hợp lệ cho dữ liệu khu mine.");
         }
     }
     /**
@@ -180,7 +180,7 @@ class MineManager implements \ArrayAccess, \IteratorAggregate, \Countable {
     protected function mineFromData($name, array $array){
         if(count($array) === 9 || count($array) === 8) {
             if(!$this->getApi()->getServer()->isLevelLoaded($array[7])){
-                $this->api->getLogger()->warning("A mine with the name " . TextFormat::AQUA . $name . TextFormat::RESET . " is connected to a level which is not loaded. You won't be able to use it until you load the level correctly.");
+                $this->api->getLogger()->warning("Khu mine tên " . TextFormat::AQUA . $name . TextFormat::RESET . " không thể reset do world chưa được load.");
             }
             return new Mine($this,
                 new Vector3(min($array[0], $array[1]), min($array[2], $array[3]), min($array[4], $array[5])),
@@ -190,7 +190,7 @@ class MineManager implements \ArrayAccess, \IteratorAggregate, \Countable {
                 (is_array($array[6]) ? $array[6] : []),
                 $array[8] ?? -1);
         }
-        $this->api->getLogger()->critical("A mine with the name " . TextFormat::AQUA . $name . TextFormat::RESET . " is incomplete. It will be removed automatically when your server stops.");
+        $this->api->getLogger()->critical("Khu mine tên " . TextFormat::AQUA . $name . TextFormat::RESET . " chưa được reset xong. Nó sẽ tự động xóa khi bạn tắt máy chủ.");
         return null;
     }
     /**

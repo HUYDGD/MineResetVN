@@ -45,16 +45,16 @@ class CreationListener implements Listener {
 
                 if($session->canGenerate()){
                     $mine = $session->generate($this->getApi()->getMineManager());
-                    $event->getPlayer()->sendMessage("You have created a mine called " . $mine->getName() . ".");
-                    $event->getPlayer()->sendMessage("You can set it using /mine set " . $mine->getName() . " <data>");
+                    $event->getPlayer()->sendMessage("Tạo thành công khu mine có tên " . $mine->getName() . ".");
+                    $event->getPlayer()->sendMessage("BẮT BUỘC: Sử dụng /mine set " . $mine->getName() . " <block và tỉ lệ chiếm> để set block cho khu mine.");
                     unset($this->sessions[array_search($session, $this->sessions)]);
                 }
                 else{
-                    $event->getPlayer()->sendMessage("You have set position A. Tap another block to set position B.");
+                    $event->getPlayer()->sendMessage("Chạm vào một block khác để đặt điểm B.");
                 }
             }
             else{
-                $event->getPlayer()->sendMessage(TextFormat::RED . "Failed to create mine due to level switch". TextFormat::RESET);
+                $event->getPlayer()->sendMessage(TextFormat::RED . "Không thể tạo khu mine. Lí do: Bạn không ở trong world đang tạo.". TextFormat::RESET);
                 unset($this->sessions[array_search($session, $this->sessions)]);
             }
         }
